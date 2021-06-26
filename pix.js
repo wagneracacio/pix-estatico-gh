@@ -17,28 +17,34 @@ pixRef = {
         }
 }
 
+function pad(num, size , value){
+    let s = num + ""; 
+    while (s.length < size) s = value + s; 
+    return s;
+}
+
 function pixparse(o,deep=0){
     let k = Object.keys(o)
     let s = ''
     for (let i=0; i<k.length; i++){
         if (typeof(o[k[i]]) == 'string'){
-            console.debug(''.padStart(deep,'*'),
-                        k[i].toString().padStart(2,'0'),
-                        o[k[i]].length.toString().padStart(2,'0'),
+            console.debug(pad('',deep,'*'),
+                        pad(k[i].toString(),2,'0'),
+                        pad(o[k[i]].length.toString(),2,'0'),
                         o[k[i]])
             s += '' + 
-                k[i].toString().padStart(2,'0') + 
-                o[k[i]].length.toString().padStart(2,'0') + 
+                pad(k[i].toString(),2,'0') + 
+                pad(o[k[i]].length.toString(),2,'0') + 
                 o[k[i]]
         } else {
             let si = pixparse(o[k[i]],deep+1)
-            console.debug(''.padStart(deep,'*'),
+            console.debug(pad('',deep,'*'),
                         k[i],
-                        si.length.toString().padStart(2,'0'),
+                        pad(si.length.toString(),2,'0'),
                         si)
             s += '' + 
-                k[i].toString().padStart(2,'0') + 
-                si.length.toString().padStart(2,'0') + 
+                pad(k[i].toString(),2,'0') + 
+                pad(si.length.toString(),2,'0') + 
                 si
         }
     }
